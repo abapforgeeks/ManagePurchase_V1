@@ -1,0 +1,8 @@
+CLASS zbp_i_purchasedoc_u DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF z_i_purchasedoc_u.
+PUBLIC SECTION.
+
+
+ENDCLASS.
+
+CLASS zbp_i_purchasedoc_u IMPLEMENTATION.
+ENDCLASS.

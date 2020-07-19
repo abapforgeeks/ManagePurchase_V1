@@ -1,0 +1,103 @@
+@Metadata.layer: #CORE
+@UI:{
+headerInfo:{
+
+description:{ value: 'PorductDesc',type:#STANDARD},
+title:{ value: 'PurchaseDocItem',type: #STANDARD },
+typeName:'Purchase Document Item',
+typeNamePlural: 'Items'
+}
+
+}
+annotate view Z_C_PurchaseDocItems with
+{
+  //Z_C_PurchaseDocItems
+  @UI:{
+  facet: [ {  id:'ItemPriceDataPoint',
+              purpose: #HEADER,
+              type:#DATAPOINT_REFERENCE,
+              targetQualifier: 'Price' },
+
+           {  id:'ItemQuantityDataPoint',
+              purpose: #HEADER,
+              type:#DATAPOINT_REFERENCE,
+              targetQualifier: 'Quantity' },
+
+              {  id:'TotalItemPriceDataPoint',
+              purpose: #HEADER,
+              type:#DATAPOINT_REFERENCE,
+              targetQualifier: 'TotalItemPrice' },
+
+              { label:'Item Data',
+              id: 'ItemCollectionDataFacet',
+              purpose: #STANDARD ,
+              type:#COLLECTION },
+
+              //Purchase Data
+              { label:'Purchase Data',
+              parentId: 'ItemCollectionDataFacet',
+              type:#FIELDGROUP_REFERENCE,
+              id:'PurchaseSectionFacet',
+              targetQualifier: 'PurchaseSection',
+              purpose: #STANDARD
+              },
+              //Other Data
+              {
+              label:'Other Data',
+              parentId: 'ItemCollectionDataFacet',
+              type:#FIELDGROUP_REFERENCE,
+              id:'OtherDataFacet',
+              targetQualifier: 'OtherData',
+              purpose: #STANDARD
+              }
+
+
+             ],
+             selectionField: [{ position: 10 }],
+             fieldGroup: [{ qualifier: 'PurchaseSection', position: 10, importance: #HIGH }]
+      }
+  PurchaseDoc;
+  @UI:{
+  lineItem: [{ position:  10, importance: #HIGH }],
+  fieldGroup: [{ position: 20, importance: #HIGH,qualifier: 'PurchaseSection',label: 'Purchase Document Item' }]
+  }
+  PurchaseDocItem;
+  @UI:{
+  lineItem: [{ position:  20, importance: #HIGH }],
+  fieldGroup: [{ position: 30, importance: #HIGH,qualifier: 'PurchaseSection' ,label: 'Product'}]
+  }
+  Product;
+  @UI:{
+  lineItem: [{ position:  30, importance: #HIGH,label: 'Item Description'}],
+  fieldGroup: [{ position: 40, importance: #HIGH,qualifier: 'PurchaseSection',label: 'Item Description' }]
+  }
+  PorductDesc;
+  @UI:{
+  lineItem: [{ position:  40, importance: #HIGH,label: 'Plant' }],
+  fieldGroup: [{ position: 10, importance: #HIGH,qualifier: 'OtherData' }]
+  }
+  Plant;
+  @UI.dataPoint:{ visualization: #NUMBER,title: 'Price' }
+  @UI.lineItem: [{ position: 50,importance: #HIGH,label: 'Price' }]
+  @UI.fieldGroup: [{ position: 50, importance: #HIGH,qualifier: 'PurchaseSection',label: 'Price' }]
+  Price;
+  @UI.lineItem: [{ position: 60,importance: #HIGH,label: 'Quantity' }]
+  @UI.dataPoint:{ visualization: #NUMBER,title: 'Quantity' }
+  @UI.fieldGroup: [{ position: 60, importance: #HIGH,qualifier: 'PurchaseSection',label: 'Quantity' }]
+  Quantity;
+  @UI:{
+  lineItem: [{ position:  70, importance: #HIGH,label: 'Total Item Price' }],
+  fieldGroup: [{ position: 80, importance: #HIGH,qualifier: 'PurchaseSection', label: 'Total Item Price'}],
+  dataPoint:{ visualization: #NUMBER,title: 'Total Item Price' }
+  }
+  TotalItemPrice;
+  @UI:{
+  lineItem: [{ position:  80, importance: #HIGH,label: 'Last Changed By' }],
+  fieldGroup: [{ position: 20, importance: #HIGH,qualifier: 'OtherData' }]
+  }
+  LastChangedBy;
+  /* Associations */
+  //Z_C_PurchaseDocItems
+
+
+}

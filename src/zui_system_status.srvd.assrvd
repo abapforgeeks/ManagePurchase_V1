@@ -1,0 +1,6 @@
+@EndUserText.label: 'System Status Test'
+define service ZUI_System_status {
+  expose Z_C_SystemStatus as OrderStatus;
+  expose ZI_System_Status as SystemStatus;
+  expose ZI_Main_Text as SystemStatusText;
+}

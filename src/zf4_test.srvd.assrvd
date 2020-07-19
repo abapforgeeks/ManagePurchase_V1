@@ -1,0 +1,6 @@
+@EndUserText.label: 'test'
+define service ZF4_test {
+  expose Z_F4_test;
+  expose ZDEMO_I_text_VH;
+  expose ZDEMO_I_Text1;
+}

@@ -1,0 +1,128 @@
+@Metadata.layer: #CORE
+@UI.headerInfo:{
+
+description:{ value: 'Description',
+              type:#STANDARD },
+
+              title:{ value: 'PurchaseDoc',
+              type:#STANDARD },
+
+            typeNamePlural: 'Purchase Documents',
+            typeName: 'Purchase Document'
+  }
+
+annotate view Z_C_PurchaseDocReport with
+{
+
+  @UI:{
+  //  selectionField: [{ position: 10 }],
+  facet: [
+
+
+  { id:'TotalPriceDataPoint',
+  purpose: #HEADER,
+  type: #DATAPOINT_REFERENCE,
+  targetQualifier: 'POTOtalPrice' },
+
+  { id:'POPriority',
+  purpose: #HEADER,
+  type: #DATAPOINT_REFERENCE,
+  targetQualifier: 'Priority' },
+
+  { id:'ApprovalRequired',
+  purpose: #HEADER,
+  type: #DATAPOINT_REFERENCE,
+  targetQualifier: 'IsAprovalReq' },
+
+  { id: 'PurchaseDetailsCollection',
+  type:#COLLECTION,
+  label: 'Purchase Details',
+  purpose: #STANDARD },
+  //Purchse Info
+  { label : 'Purchase Info',
+  parentId: 'PurchaseDetailsCollection',
+  type: #FIELDGROUP_REFERENCE,
+  purpose: #STANDARD,
+  targetQualifier: 'PurchaseInfo' ,position: 10},
+  //Admin Data section under Purchase Details
+  { label: 'Admin Data',
+  parentId: 'PurchaseDetailsCollection',
+  type:#FIELDGROUP_REFERENCE,
+  purpose: #STANDARD,
+  targetQualifier: 'AdminFieldGroup' ,position: 30},
+  //Other details Section under Purchase Details
+  { label: 'Other Details',
+  parentId: 'PurchaseDetailsCollection',
+  type:#FIELDGROUP_REFERENCE,
+  purpose: #STANDARD,
+  targetQualifier: 'OtherDetailsFieldGroup',position: 20 },
+  //Line Items
+  { label: 'Purchase Items',
+  id: 'PurchaseItems',
+  type:#LINEITEM_REFERENCE,
+  purpose: #STANDARD,
+  targetElement: '_POItems' }
+
+
+
+  ]
+  }
+    //Z_C_PurchaseDocReport
+  @UI.lineItem: [{ importance: #HIGH, label: 'Purchase Document' ,position: 10},
+  { type:#FOR_ACTION,dataAction: 'setStatus',position: 10,label:'Set Status' }]
+  @UI.selectionField: [{ position: 10 }]
+  @UI.fieldGroup: [{ qualifier: 'PurchaseInfo' ,position: 10,importance: #HIGH}]
+  PurchaseDoc;
+  @UI.fieldGroup: [{ qualifier: 'PurchaseInfo' ,position: 20,importance: #HIGH,label: 'Description'}]
+  Description;
+  @UI.lineItem: [{ importance: #HIGH, label: 'Overall Price' ,
+                   criticality: 'TotalPriceCriticality',value: 'POTOtalPrice',
+                   criticalityRepresentation: #WITH_ICON,position: 20 }]
+  @UI.dataPoint:{ title: 'Total Price',criticality: 'TotalPriceCriticality',visualization: #NUMBER }
+  POTOtalPrice;
+
+  @UI.lineItem: [{ importance: #HIGH, label: 'Status' ,position: 30 }]
+//  @Consumption.valueHelpDefinition: [{ entity:{ name: 'Z_I_PO_Status',element: 'status' } }]
+  @UI.textArrangement: #TEXT_ONLY
+  @UI.selectionField: [{ position: 20 }]
+  @UI.fieldGroup: [{ qualifier: 'PurchaseInfo' ,position: 30,importance: #HIGH,label: 'Status'}]
+  POStatus;
+
+  @UI.lineItem: [{ importance: #HIGH, label: 'Priority' , position: 40 }]
+  @UI.textArrangement: #TEXT_ONLY
+  @Consumption.valueHelpDefinition: [{ entity:{ name: 'Z_I_PO_Priority',element: 'priority' } }]
+  @UI.selectionField: [{ position: 30 }]
+  @UI.dataPoint:{ title: 'Priority'  }
+  @UI.fieldGroup: [{ qualifier: 'PurchaseInfo' ,position: 40,importance: #HIGH,label: 'Priority'}]
+  Priority;
+
+  @UI.lineItem: [{ importance: #MEDIUM, label: 'ChangedBy' ,position: 50 }]
+  @UI.fieldGroup: [{ qualifier: 'AdminFieldGroup' ,position: 10,importance: #HIGH}]
+  CreatedBy;
+
+  @UI.lineItem: [{ importance: #MEDIUM, label: 'Created Time/Date' ,position: 50 }]
+  @UI.fieldGroup: [{ qualifier: 'AdminFieldGroup' ,position: 20,importance: #HIGH}]
+  CreateTimeDate;
+  @UI.fieldGroup: [{ label:'Last ChangedBy',qualifier: 'AdminFieldGroup' ,position: 30,importance: #HIGH}]
+  ChangedBy;
+  @UI.fieldGroup: [{ label: 'Last Changed Date/Time',qualifier: 'AdminFieldGroup' ,position: 40,importance: #HIGH}]
+  ChangeTimeDate;
+
+
+  @UI.lineItem: [{ importance: #HIGH, label: 'Is Approval Required' ,
+                    criticality: 'TotalPriceCriticality',value:'IsAprovalReq',
+                    criticalityRepresentation: #WITH_ICON,position: 60 }]
+  @UI.dataPoint:{ title:'Approval Required?',criticality: 'TotalPriceCriticality'}
+  IsAprovalReq;
+  @UI.lineItem: [{ importance: #HIGH, position: 70, type:#AS_CONTACT, value: '_CompanyCode',label: 'Company Code' }]
+  @UI.fieldGroup: [{qualifier: 'OtherDetailsFieldGroup',position: 10,importance: #HIGH,
+  type:#AS_CONTACT, value:'_CompanyCode',label: 'Company Code' }]
+  @Consumption.valueHelpDefinition: [{ entity:{ name:'Z_I_CompanyCode',element: 'CompanyCode' } }]
+  CompanyCode;
+  //
+  @UI.selectionField: [{ position: 40 }]
+  @UI.fieldGroup: [{qualifier: 'PurchaseInfo',position: 50,importance: #HIGH,label: 'PO Category' }]
+  POCategory;
+
+
+}

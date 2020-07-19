@@ -1,0 +1,18 @@
+@EndUserText.label: 'Purchase Document Report'
+define service Z_UI_PurchaseDocReport_U {
+  expose Z_C_PurchaseDocReport as PurchaseDocReport;
+  expose Z_C_PurchaseDocItems as PurchaseDocItems;
+  expose Z_I_PurchaseDoc_U as PurchaseDoc_U;
+  expose Z_I_POItem_U as PurchaseItem_U;
+  expose Z_I_PurchaseDocTotalPrice as PurchaseDocTotalPrice;
+  expose Z_I_PurchaseDoc as PurchaseDocBase;
+  expose Z_I_PurchaseDocItem as PurchaseItemBase;
+  expose Z_I_Plant as Plant;
+  expose Z_I_PO_Priority as POPriority;
+  expose Z_I_PO_Status as POStatus;
+  expose I_PurchaseOrgVH as PurchaseOrg;
+  expose I_Currency as Currency;
+  expose Z_I_CompanyCode as CompanyCodes;
+  expose Z_I_POCategory as PurchaseCategory;
+  expose Z_I_POStatus as POText;
+}

@@ -1,0 +1,46 @@
+unmanaged implementation in class zbp_i_purchasedoc_u unique;
+
+define behavior for Z_I_PurchaseDoc_U alias podoc
+//late numbering
+lock master
+//authorization master
+etag ChangeTimeDate
+{
+  field ( readonly ) PurchaseDoc, CreateTimeDate, CreatedBy, ChangedBy, ChangeTimeDate;
+  field ( mandatory ) Description, Priority;
+
+  create;
+  update;
+  delete;
+  association _POItems { create; }
+  action set_Status result [1] $self;
+
+}
+
+define behavior for Z_I_POItem_U alias poitems
+//late numbering
+//lock dependent( <local_field_name> = <target_field_name> )
+//authorization dependent( <local_field_name> = <target_field_name> )
+etag LastChangedBy
+{
+  field ( readonly ) LastChangedBy, PurchaseDoc,PurchaseDocItem;
+  field ( mandatory ) Quantity, Price, Product;
+  create;
+  update;
+  delete;
+  mapping for zpurchase_item{
+
+  PurchaseDoc = purchase_doc;
+  PurchaseDocItem = purchase_item;
+  PorductDesc = short_text;
+  Plant = plant;
+  Product = material;
+  Price = price;
+  Quantity = quantity;
+  Currency = currency;
+  Unit =  unit;
+  LastChangedBy = lch_by;
+
+
+  }
+}

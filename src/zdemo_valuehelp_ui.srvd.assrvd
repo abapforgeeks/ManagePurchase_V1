@@ -1,0 +1,6 @@
+@EndUserText.label: 'Demo'
+define service ZDEMO_VALUEHELP_UI {
+  expose ZDEMO_C_ValueHelp_Demo;
+  expose ZDEMO_I_text_VH;
+  expose ZDEMO_I_Text1;
+}
