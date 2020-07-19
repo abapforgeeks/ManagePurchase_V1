@@ -27,8 +27,8 @@ INTERFACE z_if_purchase_types
     END OF lty_purchase_docx.
 
 TYPES: BEGIN OF lty_purchase_itemx,
-       purchase_doc TYPE boolean,
-       purchase_item TYPE boolean,
+       purchase_doc TYPE zpuch_doc,
+       purchase_item TYPE ebelp,
         short_text TYPE boolean,
         material TYPE boolean,
         plant TYPE boolean,
